@@ -41,7 +41,8 @@ export default function Dashboard() {
   const [transcript, setTranscript] = useState("");
   const [rerunSql, setRerunSql] = useState("");
   const [rerunConnectionId, setRerunConnectionId] = useState<string | undefined>();
-  const [activeSection, setActiveSection] = useState<"voice" | "workspace" | null>(null);
+  const [voiceOpen, setVoiceOpen] = useState(false);
+  const [workspaceOpen, setWorkspaceOpen] = useState(false);
 
   useEffect(() => {
     const state = location.state as {

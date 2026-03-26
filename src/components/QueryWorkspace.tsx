@@ -50,7 +50,7 @@ interface QueryWorkspaceProps {
 export default function QueryWorkspace({ transcript, initialSql, initialConnectionId, onConsumeRerun }: QueryWorkspaceProps) {
   const { user } = useAuth();
   const [connections, setConnections] = useState<Connection[]>([]);
-  const [selectedId, setSelectedId] = useState<string>("");
+  const [selectedId, setSelectedId] = useState<string>(() => sessionStorage.getItem("qw_connectionId") || "");
   const [schema, setSchema] = useState<SchemaTable[] | null>(null);
   const [sql, setSql] = useState(() => sessionStorage.getItem("qw_sql") || "");
   const [explanation, setExplanation] = useState(() => sessionStorage.getItem("qw_explanation") || "");

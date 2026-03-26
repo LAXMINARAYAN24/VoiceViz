@@ -18,7 +18,12 @@ interface ConnParams {
   sql?: string;
 }
 
-// Validate that no dangerous params are passed
+// Ensure BigInt is always serializable
+(BigInt.prototype as any).toJSON = function () {
+  return Number(this);
+};
+
+
 function validateInput(params: ConnParams): string | null {
   if (!["test", "schema", "query"].includes(params.action)) return "Invalid action";
   if (!["postgresql", "mysql"].includes(params.db_type)) return "Invalid db_type";

@@ -18,7 +18,12 @@ interface ConnParams {
   sql?: string;
 }
 
-// Validate that no dangerous params are passed
+// Ensure BigInt is always serializable
+(BigInt.prototype as any).toJSON = function () {
+  return Number(this);
+};
+
+
 function validateInput(params: ConnParams): string | null {
   if (!["test", "schema", "query"].includes(params.action)) return "Invalid action";
   if (!["postgresql", "mysql"].includes(params.db_type)) return "Invalid db_type";
@@ -85,6 +90,20 @@ async function schemaPostgres(params: ConnParams) {
   }
 }
 
+// Recursively convert BigInt values to numbers
+function sanitizeBigInts(obj: any): any {
+  if (typeof obj === "bigint") return Number(obj);
+  if (Array.isArray(obj)) return obj.map(sanitizeBigInts);
+  if (obj !== null && typeof obj === "object") {
+    const out: any = {};
+    for (const [k, v] of Object.entries(obj)) {
+      out[k] = sanitizeBigInts(v);
+    }
+    return out;
+  }
+  return obj;
+}
+
 async function queryPostgres(params: ConnParams) {
   if (!params.sql) throw new Error("SQL query required");
   // Basic safety: only allow SELECT
@@ -95,7 +114,8 @@ async function queryPostgres(params: ConnParams) {
   const client = await connectPostgres(params);
   try {
     const result = await client.queryObject(params.sql);
-    return { success: true, rows: result.rows, rowCount: result.rows.length };
+    const rows = sanitizeBigInts(result.rows);
+    return { success: true, rows, rowCount: rows.length };
   } finally {
     await client.end();
   }

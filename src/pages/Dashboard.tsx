@@ -224,7 +224,7 @@ export default function Dashboard() {
                 className="mt-6"
               >
                 <button
-                  onClick={() => setActiveSection(activeSection === "workspace" ? null : "workspace")}
+                  onClick={() => setWorkspaceOpen(!workspaceOpen)}
                   className="w-full text-left group"
                 >
                   <div className="flex items-center justify-between">
@@ -237,7 +237,7 @@ export default function Dashboard() {
                         <p className="text-xs text-muted-foreground">Generate SQL, execute, and visualize results</p>
                       </div>
                     </div>
-                    <ArrowRight className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${activeSection === "workspace" ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
+                    <ArrowRight className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${workspaceOpen ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
                   </div>
                 </button>
                 <AnimatePresence>

@@ -173,7 +173,7 @@ export default function Dashboard() {
                 className="mt-10"
               >
                 <button
-                  onClick={() => setActiveSection(activeSection === "voice" ? null : "voice")}
+                  onClick={() => setVoiceOpen(!voiceOpen)}
                   className="w-full text-left group"
                 >
                   <div className="flex items-center justify-between">
@@ -186,7 +186,7 @@ export default function Dashboard() {
                         <p className="text-xs text-muted-foreground">Tap the mic and speak naturally in any language</p>
                       </div>
                     </div>
-                    <ArrowRight className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${activeSection === "voice" ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
+                    <ArrowRight className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${voiceOpen ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
                   </div>
                 </button>
                 <AnimatePresence>

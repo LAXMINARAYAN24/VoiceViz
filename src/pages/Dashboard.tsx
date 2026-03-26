@@ -41,7 +41,8 @@ export default function Dashboard() {
   const [transcript, setTranscript] = useState("");
   const [rerunSql, setRerunSql] = useState("");
   const [rerunConnectionId, setRerunConnectionId] = useState<string | undefined>();
-  const [activeSection, setActiveSection] = useState<"voice" | "workspace" | null>(null);
+  const [voiceOpen, setVoiceOpen] = useState(false);
+  const [workspaceOpen, setWorkspaceOpen] = useState(false);
 
   useEffect(() => {
     const state = location.state as {
@@ -53,7 +54,7 @@ export default function Dashboard() {
       setTranscript(state.rerunTranscript || "");
       setRerunSql(state.rerunSql);
       setRerunConnectionId(state.rerunConnectionId);
-      setActiveSection("workspace");
+      setWorkspaceOpen(true);
       window.history.replaceState({}, "");
     }
   }, [location.state]);
@@ -141,8 +142,8 @@ export default function Dashboard() {
                     <Link
                       to={card.href}
                       onClick={() => {
-                        if (card.title === "Voice Query") setActiveSection("voice");
-                        if (card.title === "Visualizations") setActiveSection("workspace");
+                        if (card.title === "Voice Query") setVoiceOpen(true);
+                        if (card.title === "Visualizations") setWorkspaceOpen(true);
                       }}
                       className={`group relative block rounded-xl border border-border/60 bg-card p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 ${card.border} overflow-hidden`}
                     >
@@ -172,7 +173,7 @@ export default function Dashboard() {
                 className="mt-10"
               >
                 <button
-                  onClick={() => setActiveSection(activeSection === "voice" ? null : "voice")}
+                  onClick={() => setVoiceOpen(!voiceOpen)}
                   className="w-full text-left group"
                 >
                   <div className="flex items-center justify-between">
@@ -185,11 +186,11 @@ export default function Dashboard() {
                         <p className="text-xs text-muted-foreground">Tap the mic and speak naturally in any language</p>
                       </div>
                     </div>
-                    <ArrowRight className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${activeSection === "voice" ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
+                    <ArrowRight className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${voiceOpen ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
                   </div>
                 </button>
                 <AnimatePresence>
-                  {activeSection === "voice" && (
+                  {voiceOpen && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
@@ -223,7 +224,7 @@ export default function Dashboard() {
                 className="mt-6"
               >
                 <button
-                  onClick={() => setActiveSection(activeSection === "workspace" ? null : "workspace")}
+                  onClick={() => setWorkspaceOpen(!workspaceOpen)}
                   className="w-full text-left group"
                 >
                   <div className="flex items-center justify-between">
@@ -236,11 +237,11 @@ export default function Dashboard() {
                         <p className="text-xs text-muted-foreground">Generate SQL, execute, and visualize results</p>
                       </div>
                     </div>
-                    <ArrowRight className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${activeSection === "workspace" ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
+                    <ArrowRight className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${workspaceOpen ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
                   </div>
                 </button>
                 <AnimatePresence>
-                  {activeSection === "workspace" && (
+                  {workspaceOpen && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}

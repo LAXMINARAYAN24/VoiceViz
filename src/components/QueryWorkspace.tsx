@@ -52,8 +52,8 @@ export default function QueryWorkspace({ transcript, initialSql, initialConnecti
   const [connections, setConnections] = useState<Connection[]>([]);
   const [selectedId, setSelectedId] = useState<string>("");
   const [schema, setSchema] = useState<SchemaTable[] | null>(null);
-  const [sql, setSql] = useState("");
-  const [explanation, setExplanation] = useState("");
+  const [sql, setSql] = useState(() => sessionStorage.getItem("qw_sql") || "");
+  const [explanation, setExplanation] = useState(() => sessionStorage.getItem("qw_explanation") || "");
   const [results, setResults] = useState<Record<string, unknown>[] | null>(null);
   const [columns, setColumns] = useState<string[]>([]);
   const [generating, setGenerating] = useState(false);

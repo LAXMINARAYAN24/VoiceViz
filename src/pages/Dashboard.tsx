@@ -190,7 +190,7 @@ export default function Dashboard() {
                   </div>
                 </button>
                 <AnimatePresence>
-                  {activeSection === "voice" && (
+                  {voiceOpen && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}

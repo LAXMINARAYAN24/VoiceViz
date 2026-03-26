@@ -60,7 +60,10 @@ export default function QueryWorkspace({ transcript, initialSql, initialConnecti
   const [running, setRunning] = useState(false);
   const [loadingSchema, setLoadingSchema] = useState(false);
 
-  // Apply re-run values from history
+  // Persist sql & explanation to sessionStorage
+  useEffect(() => { sessionStorage.setItem("qw_sql", sql); }, [sql]);
+  useEffect(() => { sessionStorage.setItem("qw_explanation", explanation); }, [explanation]);
+
   useEffect(() => {
     if (initialSql && initialConnectionId) {
       setSelectedId(initialConnectionId);

@@ -142,8 +142,8 @@ export default function Dashboard() {
                     <Link
                       to={card.href}
                       onClick={() => {
-                        if (card.title === "Voice Query") setActiveSection("voice");
-                        if (card.title === "Visualizations") setActiveSection("workspace");
+                        if (card.title === "Voice Query") setVoiceOpen(true);
+                        if (card.title === "Visualizations") setWorkspaceOpen(true);
                       }}
                       className={`group relative block rounded-xl border border-border/60 bg-card p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 ${card.border} overflow-hidden`}
                     >

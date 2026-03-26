@@ -54,7 +54,7 @@ export default function Dashboard() {
       setTranscript(state.rerunTranscript || "");
       setRerunSql(state.rerunSql);
       setRerunConnectionId(state.rerunConnectionId);
-      setActiveSection("workspace");
+      setWorkspaceOpen(true);
       window.history.replaceState({}, "");
     }
   }, [location.state]);

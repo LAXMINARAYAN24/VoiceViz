@@ -42,7 +42,7 @@ export default function Dashboard() {
   const [rerunSql, setRerunSql] = useState("");
   const [rerunConnectionId, setRerunConnectionId] = useState<string | undefined>();
   const [voiceOpen, setVoiceOpen] = useState(false);
-  const [workspaceOpen, setWorkspaceOpen] = useState(true);
+  const [workspaceOpen, setWorkspaceOpen] = useState(false);
 
   useEffect(() => {
     const state = location.state as {
@@ -240,24 +240,26 @@ export default function Dashboard() {
                     <ArrowRight className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${workspaceOpen ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
                   </div>
                 </button>
-                <motion.div
-                  initial={false}
-                  animate={{
-                    height: workspaceOpen ? "auto" : 0,
-                    opacity: workspaceOpen ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="overflow-hidden"
-                >
-                  <div className="mt-4 rounded-xl border border-border/60 bg-card/50 backdrop-blur-sm p-6 shadow-sm">
-                    <QueryWorkspace
-                      transcript={transcript}
-                      initialSql={rerunSql}
-                      initialConnectionId={rerunConnectionId}
-                      onConsumeRerun={() => { setRerunSql(""); setRerunConnectionId(undefined); }}
-                    />
-                  </div>
-                </motion.div>
+                <AnimatePresence>
+                  {workspaceOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-4 rounded-xl border border-border/60 bg-card/50 backdrop-blur-sm p-6 shadow-sm">
+                        <QueryWorkspace
+                          transcript={transcript}
+                          initialSql={rerunSql}
+                          initialConnectionId={rerunConnectionId}
+                          onConsumeRerun={() => { setRerunSql(""); setRerunConnectionId(undefined); }}
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.section>
 
               {/* Bottom spacer */}

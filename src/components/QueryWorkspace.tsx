@@ -63,6 +63,7 @@ export default function QueryWorkspace({ transcript, initialSql, initialConnecti
   // Persist sql & explanation to sessionStorage
   useEffect(() => { sessionStorage.setItem("qw_sql", sql); }, [sql]);
   useEffect(() => { sessionStorage.setItem("qw_explanation", explanation); }, [explanation]);
+  useEffect(() => { sessionStorage.setItem("qw_connectionId", selectedId); }, [selectedId]);
 
   useEffect(() => {
     if (initialSql && initialConnectionId) {

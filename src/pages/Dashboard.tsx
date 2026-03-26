@@ -42,7 +42,7 @@ export default function Dashboard() {
   const [rerunSql, setRerunSql] = useState("");
   const [rerunConnectionId, setRerunConnectionId] = useState<string | undefined>();
   const [voiceOpen, setVoiceOpen] = useState(false);
-  const [workspaceOpen, setWorkspaceOpen] = useState(false);
+  const [workspaceOpen, setWorkspaceOpen] = useState(true);
 
   useEffect(() => {
     const state = location.state as {

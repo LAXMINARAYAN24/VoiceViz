@@ -1,170 +1,64 @@
-# Repo Remaker Lab
+VoiceViz
 
-Beginner-friendly setup guide for this project.
+A full-stack SQL analytics platform that lets users query and explore databases using natural language and voice, instead of writing raw SQL.
 
-## What This Project Is
+Overview
 
-This is a web app built with:
+VoiceViz turns spoken or typed natural-language questions into database queries and visual results. It's built for teams who want to explore data without needing to know SQL, while still giving power users a real, secure, multi-workspace analytics environment.
 
-- React + TypeScript (frontend)
-- Vite (development server and build tool)
-- Supabase (backend services)
+Features
 
-## 1) Install Required Software
 
-You only need these 2 tools:
+Voice-to-query — ask questions out loud or by typing plain English; VoiceViz translates them into SQL and runs them against the connected database
+Authentication & protected routing — secure sign-in with route-level access control so only authorized users reach workspace data
+Multi-user workspace management — isolate data, queries, and dashboards per workspace so multiple teams/users can work independently
+Schema exploration — browse tables, columns, and relationships visually instead of digging through raw schema dumps
+Interactive result visualization — query results are rendered as charts/tables that update as you explore
 
-1. Node.js (recommended: version 18 or newer)
-2. Git
 
-How to check if they are installed:
+Tech Stack
 
-```bash
-node -v
-git --version
-```
+LayerTechnologyFrontendReact, TypeScriptBackendFastAPIDatabase / Backend servicesSupabase
 
-If commands are not found, install Node.js and Git first, then reopen terminal.
+How It Works
 
-## 2) Open This Project Folder
 
-In terminal, move into the project folder:
+User submits a question via voice or text
+The backend parses the query intent and converts it into a SQL query
+FastAPI executes the query against the connected database via Supabase
+Results are returned and rendered as interactive visualizations (tables/charts) in the React frontend
+Users can drill into schema details directly from the results view
 
-```bash
-cd "c:\Users\sahul\Desktop\HCI PROJECT\repo-remaker-lab"
-```
 
-Tip: Keep quotes because the path has spaces.
+Getting Started
 
-## 3) Install Project Dependencies
+bash# clone the repo
+git clone https://github.com/LAXMINARAYAN24/VoiceViz.git
+cd VoiceViz
 
-Run:
-
-```bash
+# install frontend dependencies
 npm install
-```
 
-If Windows gives npm cache permission errors, use:
+# set up environment variables
+# create a .env file with your Supabase project credentials:
+# VITE_SUPABASE_PROJECT_ID=your_project_id
+# VITE_SUPABASE_PUBLISHABLE_KEY=your_publishable_key
+# VITE_SUPABASE_URL=https://your-project.supabase.co
 
-```bash
-npm install --cache .npm-cache
-```
-
-## 4) Environment Variables (.env)
-
-This repo already includes a `.env` file, so most people do not need to change anything.
-
-If you need to recreate it, add these keys:
-
-```env
-VITE_SUPABASE_PROJECT_ID=your_project_id
-VITE_SUPABASE_PUBLISHABLE_KEY=your_publishable_key
-VITE_SUPABASE_URL=https://your-project.supabase.co
-```
-
-Important:
-
-- Never commit secret keys.
-- `VITE_` variables are exposed to browser code by design.
-
-## 5) Start the App (Development Mode)
-
-Run:
-
-```bash
+# run the dev server
 npm run dev
-```
 
-Open the URL shown in terminal. In this project, it is usually:
+Open the URL shown in the terminal (typically http://localhost:8080).
 
-```text
-http://localhost:8080
-```
+Project Structure
 
-To stop the app, press `Ctrl + C` in the terminal.
+src/
+  components/   # reusable UI components
+  pages/        # page-level views
+supabase/
+  functions/    # Supabase Edge Functions
+  migrations/   # database migration SQL
 
-## 6) Useful Commands
+License
 
-Run tests once:
-
-```bash
-npm test
-```
-
-Watch tests while coding:
-
-```bash
-npm run test:watch
-```
-
-Check lint errors:
-
-```bash
-npm run lint
-```
-
-Create production build:
-
-```bash
-npm run build
-```
-
-Preview production build locally:
-
-```bash
-npm run preview
-```
-
-## 7) First-Time User Checklist
-
-Use this quick checklist:
-
-- `node -v` works
-- `npm install` completed with no fatal error
-- `.env` exists
-- `npm run dev` starts
-- App opens in browser
-
-If all 5 are true, your setup is good.
-
-## 8) Common Problems and Fixes
-
-`npm` is not recognized:
-
-- Node.js is not installed or terminal needs restart.
-
-Port already in use:
-
-- Close the old process using that port, then run `npm run dev` again.
-
-Permission/cache errors on Windows:
-
-- Use `npm install --cache .npm-cache`.
-
-Supabase or auth errors in app:
-
-- Check `.env` values are present and correct.
-
-Git commit opens an error about editor pipe:
-
-- Commit from terminal using:
-
-```bash
-git commit -m "your message"
-```
-
-## 9) Project Structure (Simple View)
-
-- `src/` -> main frontend app code
-- `src/components/` -> reusable UI components
-- `src/pages/` -> page-level screens
-- `supabase/functions/` -> Supabase Edge Functions
-- `supabase/migrations/` -> database migration SQL files
-
-## 10) Recommended Learning Path (If You Are New)
-
-1. Run the app first (`npm run dev`).
-2. Open `src/pages/` and edit one text label.
-3. Refresh browser and see your change.
-4. Run `npm test`.
-5. Run `npm run build`.
+MIT
